@@ -2726,6 +2726,10 @@
 												}
 											}
 										} else {
+											if($math_ext_distance > 0) {
+												$distance = $math_ext_distance;
+												$d_source = 'gps';
+											} else {
 											$gURL = 'https://maps.googleapis.com/maps/api/directions/json?origin='.$pickuplatlng.'&destination='.$drlatlng. '&alternatives=true&sensor=false&mode=driving'.$ci->data['google_maps_api_key'];
 											#echo "out<pre>"; print_r($gURL); die;
 												$gmap = file_get_contents($gURL); 
@@ -2768,6 +2772,7 @@
 												}
 												$distance=$distance;
 												$d_source='google';
+										}
 										}
 									}	
 									
