@@ -2648,7 +2648,10 @@
 									$distanceKM = $distance;
 								} else {
 									#echo "as"; die;
+									$pickup_lat=$checkRide->row()->booking_information["pickup"]["latlong"]["lat"];
+									$pickup_lon=$checkRide->row()->booking_information["pickup"]["latlong"]["lon"];
 									$math_ext_distance = 0;
+									$travel_history = "," . $pickup_lat . ";" . $pickup_lon . ";" . $pickup_time . ";" . $travel_history . "," . $drop_lat . ";" . $drop_lon . ";" . $drop_time;
 									if($travel_history!="") $math_ext_distance = get_distance_from_latlong($travel_history,$ride_id);	
 									$change_distance='No';
 									
