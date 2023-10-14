@@ -2371,18 +2371,18 @@
 										#echo $checkRide->row()->ride_status; die;
 										if ($checkRide->row()->ride_status == 'Arrived') {
 											$latlng = $pickup_lat . ',' . $pickup_lon;
-											$gmap = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latlng . "&sensor=false".$ci->data['google_maps_api_key']);
-											$map_result = json_decode($gmap);
-											$mapValues = $map_result->results;
+											// $gmap = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latlng . "&sensor=false".$ci->data['google_maps_api_key']);
+											// $map_result = json_decode($gmap);
+											// $mapValues = $map_result->results;
 											
 											$drop_latlng = $drop_lat . ',' . $drop_lon;
-											$urldrop = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $drop_latlng . "&sensor=false".$ci->data['google_maps_api_key'];
-											$gmap_drop = file_get_contents($urldrop);
-											$drop_result = json_decode($gmap_drop);
-											$mapValues_drop = $drop_result->results;
-											if(!empty($mapValues) && !empty($mapValues_drop)){
-												$formatted_address = $mapValues[0]->formatted_address;
-												$drop_address = $mapValues_drop[0]->formatted_address;
+											// $urldrop = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $drop_latlng . "&sensor=false".$ci->data['google_maps_api_key'];
+											// $gmap_drop = file_get_contents($urldrop);
+											// $drop_result = json_decode($gmap_drop);
+											// $mapValues_drop = $drop_result->results;
+											if(true){
+												$formatted_address =$latlng;
+												$drop_address = $drop_latlng;
 												
 												/* Update the ride information */
 												$curr_time = time();
@@ -2856,12 +2856,12 @@
 										$coupon_discount = 0;
 										
 										$latlng = $drop_lat . ',' . $drop_lon;
-										$gmap = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latlng . "&sensor=false".$ci->data['google_maps_api_key']);
-										$map_values = json_decode($gmap);
-										$mapValues = $map_values->results;
+										// $gmap = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?latlng=" . $latlng . "&sensor=false".$ci->data['google_maps_api_key']);
+										// $map_values = json_decode($gmap);
+										// $mapValues = $map_values->results;
 										#echo "<pre>"; print_r($mapValues); die;
-										if(!empty($mapValues)){
-											$dropping_address = $mapValues[0]->formatted_address;
+										if(true){
+											$dropping_address = $latlng;
 											if(($pickup_time+$ride_wait_time)<=($ride_end_time+100)){
 												$trip_type = "Normal";
 												if(isset($checkRide->row()->pool_ride)){
