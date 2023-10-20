@@ -107,7 +107,7 @@ if ( ! function_exists('cal_distance')) {
 		if ($dis > 1000) {
 			$pickuplatlng = $longitudeFrom . "," . $latitudeFrom;
 			$droplatlng = $longitudeTo . "," . $latitudeTo;
-			$dURL = "https://18.134.106.94:8080/ors/v2/directions/driving-car?&start=" . $pickuplatlng . "&end=". $droplatlng;
+			$dURL = "http://18.134.106.94:8080/ors/v2/directions/driving-car?&start=" . $pickuplatlng . "&end=". $droplatlng;
 			// $gURL = 'https://maps.googleapis.com/maps/api/directions/json?origin='.$pickuplatlng.'&destination='.$drlatlng. '&alternatives=true&sensor=false&mode=driving'.$ci->data['google_maps_api_key'];								#echo "out<pre>"; print_r($gURL); die;
 			// $gmap = file_get_contents($gURL); 
 			// $map_values = json_decode($gmap);
