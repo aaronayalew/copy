@@ -105,46 +105,50 @@ if ( ! function_exists('cal_distance')) {
 		$angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
 		$dis = $angle * $earthRadius * 1.609344;
 		if ($dis > 1000) {
-			$gURL = 'https://maps.googleapis.com/maps/api/directions/json?origin='.$pickuplatlng.'&destination='.$drlatlng. '&alternatives=true&sensor=false&mode=driving'.$ci->data['google_maps_api_key'];
-											#echo "out<pre>"; print_r($gURL); die;
-												$gmap = file_get_contents($gURL); 
-												$map_values = json_decode($gmap);
-												$routes = $map_values->routes;
-												if(!empty($routes)){
-													#usort($routes, create_function('$a,$b', 'return intval($a->legs[0]->distance->value) - intval($b->legs[0]->distance->value);'));
-													$min_distance = $routes[0]->legs[0]->distance->text;
-													$min_duration = round($routes[0]->legs[0]->duration->value/60);
-													if (preg_match('/km/',$min_distance)){
-														$return_distance = 'km';
-													}else if (preg_match('/mi/',$min_distance)){
-														$return_distance = 'mi';
-													}else if (preg_match('/m/',$min_distance)){
-														$return_distance = 'm';
-													}else if (preg_match('/ft/',$min_distance)){
-														 $return_distance = 'ft';
-													} else {
-														$return_distance = 'km';
-													}
-													$distance_unit = 'km';
-													$apxdistance = floatval(str_replace(',','',$min_distance));
-													if($distance_unit!=$return_distance){
-														if($distance_unit=='km' && $return_distance=='mi'){
-															$apxdistance = $apxdistance * 1.60934;
-														} else if($distance_unit=='mi' && $return_distance=='km'){
-															$apxdistance = $apxdistance * 0.621371;
-														} else if($distance_unit=='km' && $return_distance=='m'){
-															$apxdistance = $apxdistance / 1000;
-														} else if($distance_unit=='mi' && $return_distance=='m'){
-															$apxdistance = $apxdistance * 0.00062137;
-														} else if($distance_unit=='km' && $return_distance=='ft'){
-															$apxdistance = $apxdistance * 0.0003048;
-														} else if($distance_unit=='mi' && $return_distance=='ft'){
-															$apxdistance = $apxdistance * 0.00018939;
-														}
-													}
-													$dis =  floatval(round($apxdistance,2));
+			$pickuplatlng = $longitudeFrom . "," . $latitudeFrom;
+			$droplatlng = $longitudeTo . "," . $latitudeTo;
+			$dURL = "https://18.134.106.94:8080/ors/v2/directions/driving-car?&start=" . $pickuplatlng . "&end=". $droplatlng;
+			// $gURL = 'https://maps.googleapis.com/maps/api/directions/json?origin='.$pickuplatlng.'&destination='.$drlatlng. '&alternatives=true&sensor=false&mode=driving'.$ci->data['google_maps_api_key'];								#echo "out<pre>"; print_r($gURL); die;
+			// $gmap = file_get_contents($gURL); 
+			// $map_values = json_decode($gmap);
+			// $routes = $map_values->routes;
+			// if(!empty($routes)){
+			// 	#usort($routes, create_function('$a,$b', 'return intval($a->legs[0]->distance->value) - intval($b->legs[0]->distance->value);'));
+			// 	$min_distance = $routes[0]->legs[0]->distance->text;
+			// 	$min_duration = round($routes[0]->legs[0]->duration->value/60);
+			// 	if (preg_match('/km/',$min_distance)){
+			// 		$return_distance = 'km';
+			// 	}else if (preg_match('/mi/',$min_distance)){
+			// 		$return_distance = 'mi';
+			// 	}else if (preg_match('/m/',$min_distance)){
+			// 		$return_distance = 'm';
+			// 	}else if (preg_match('/ft/',$min_distance)){
+			// 		 $return_distance = 'ft';
+			// 	} else {
+			// 		$return_distance = 'km';
+			// 	}
+			// 	$distance_unit = 'km';
+			// 	$apxdistance = floatval(str_replace(',','',$min_distance));
+			// 	if($distance_unit!=$return_distance){
+			// 		if($distance_unit=='km' && $return_distance=='mi'){
+			// 			$apxdistance = $apxdistance * 1.60934;
+			// 		} else if($distance_unit=='mi' && $return_distance=='km'){
+			// 			$apxdistance = $apxdistance * 0.621371;
+			// 		} else if($distance_unit=='km' && $return_distance=='m'){
+			// 			$apxdistance = $apxdistance / 1000;
+			// 		} else if($distance_unit=='mi' && $return_distance=='m'){
+			// 			$apxdistance = $apxdistance * 0.00062137;
+			// 		} else if($distance_unit=='km' && $return_distance=='ft'){
+			// 			$apxdistance = $apxdistance * 0.0003048;
+			// 		} else if($distance_unit=='mi' && $return_distance=='ft'){
+			// 			$apxdistance = $apxdistance * 0.00018939;
+			// 		}
+			// 	}
+			// 	$dis =  floatval(round($apxdistance, );
+			$jsonString = file_get_contents($dURL);
+			$data = json_decode($jsonString, true);
+			$dis = $data['features'][0]['properties']['segments'][0]['distance'];
 		}
-	}
 		return $dis;
 	}
 }
