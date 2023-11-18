@@ -2333,7 +2333,7 @@
 				if(array_key_exists("drop_lat",$beginInfo)) $drop_lat =  trim($beginInfo['drop_lat']); else $drop_lat = "";
 				if(array_key_exists("drop_lon",$beginInfo)) $drop_lon =  trim($beginInfo['drop_lon']); else $drop_lon = "";
 				
-				if(array_key_exists("distance",$beginInfo)) $distance =  floatval($beginInfo['distance']); else $distance = 0;
+				if(array_key_exists("distance",$beginInfo)) $distance =  floatval($beginInfo['distance']); else $distance = 1;
 				
 				if(array_key_exists("no_of_seat",$beginInfo)) $no_of_seat =  floatval($beginInfo['no_of_seat']); else $no_of_seat = "";	
 				
