@@ -2338,7 +2338,8 @@
 				if(array_key_exists("no_of_seat",$beginInfo)) $no_of_seat =  floatval($beginInfo['no_of_seat']); else $no_of_seat = "";	
 				
 				if(array_key_exists("begin_meter",$beginInfo)) $begin_meter =  floatval($beginInfo['begin_meter']); else $begin_meter = "";		
-				
+				$log_content = "Driver_ID:" . $driver_id . " RideID: " . $ride_id ." PupLAT: " . $pickup_lat . " DropLat: " . $drop_lat . " Distance: " . $distance .PHP_EOL;
+				file_put_contents('./log/logs/mylogs.txt', $log_content, FILE_APPEND); #die;
 				if ($driver_id!="" && $ride_id!="" && $pickup_lat!="" && $pickup_lon!="" && $drop_lat!="" && $drop_lon!="" && $distance>=0){
 					$checkDriver = $ci->app_model->get_selected_fields(DRIVERS, array('_id' => MongoID($driver_id)), array('email','last_accept_time','upcoming_ride'));
 					if ($checkDriver->num_rows() == 1) { 
